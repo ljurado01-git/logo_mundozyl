@@ -7,7 +7,10 @@ Uso:
 import math
 import os
 
-from generar_logos import AZUL_CIELO, AZUL_PROFUNDO, BLANCO, RAIZ, guardar, svg_doc, texto
+from fontTools.pens.boundsPen import BoundsPen
+from fontTools.pens.transformPen import TransformPen
+
+from generar_logos import AZUL_CIELO, AZUL_PROFUNDO, BLANCO, RAIZ, fuente, guardar, svg_doc, texto
 
 DIR_SALIDA = os.path.join(RAIZ, "propuestas", "ronda3")
 
@@ -57,6 +60,61 @@ def wordmark(x, y_base, cap, c1, c2):
     return f'<path d="{d1}" fill="{c1}"/><path d="{d2}" fill="{c2}"/>', w1 + sep + w2
 
 
+def tinta(cadena, cap, tracking):
+    """Límites horizontales reales (sin márgenes laterales) del texto en x=0."""
+    f = fuente("montserrat", 700)
+    gs, cmap = f.getGlyphSet(), f.getBestCmap()
+    esc = cap / f["OS/2"].sCapHeight
+    pen = BoundsPen(gs)
+    cursor = 0.0
+    for ch in cadena:
+        g = gs[cmap[ord(ch)]]
+        g.draw(TransformPen(pen, (esc, 0, 0, esc, cursor * esc, 0)))
+        cursor += g.width + tracking * f["head"].unitsPerEm
+    return pen.bounds[0], pen.bounds[2]
+
+
+def wordmark_2_lineas(x, y_top, cap, interlinea, c1, c2):
+    """MUNDO sobre ZYL, ambas líneas justificadas al mismo ancho de tinta."""
+    tr = 0.06
+    a0, a1 = tinta("MUNDO", cap, tr)
+    ancho = a1 - a0
+    upm_px = 1000 * cap / fuente("montserrat", 700)["OS/2"].sCapHeight
+    b0, b1 = tinta("ZYL", cap, 0)
+    tr_zyl = (ancho - (b1 - b0)) / 2 / upm_px
+    b0, b1 = tinta("ZYL", cap, tr_zyl)
+    y1 = y_top + cap
+    y2 = y1 + interlinea + cap
+    d1, _ = texto("montserrat", 700, "MUNDO", cap, x - a0, y1, tr)
+    d2, _ = texto("montserrat", 700, "ZYL", cap, x - b0, y2, tr_zyl)
+    return f'<path d="{d1}" fill="{c1}"/><path d="{d2}" fill="{c2}"/>', ancho
+
+
+def horizontal_2_lineas(v, negativo=False):
+    """Símbolo a la izquierda; las dos líneas ocupan exactamente su altura."""
+    c1, c2, fondo = cols(v, negativo)
+    s, m = 220, 70
+    interlinea = s * 0.16
+    cap = (s - interlinea) / 2
+    ic = monograma(m, m, s, c1, c2)
+    x = m + s + s * 0.16
+    wm, w = wordmark_2_lineas(x, m, cap, interlinea, c1, c2)
+    return svg_doc(x + w + m, s + 2 * m, ic + wm, fondo)
+
+
+def vertical_2_lineas(v, negativo=False):
+    c1, c2, fondo = cols(v, negativo)
+    s, m = 240, 70
+    cap = 78
+    interlinea = cap * 0.30
+    _, w = wordmark_2_lineas(0, 0, cap, interlinea, c1, c2)
+    ancho = max(s, w) + 2 * m
+    ic = monograma(ancho / 2 - s / 2, m, s, c1, c2)
+    y_top = m + s + cap * 0.6
+    wm, _ = wordmark_2_lineas(ancho / 2 - w / 2, y_top, cap, interlinea, c1, c2)
+    return svg_doc(ancho, y_top + 2 * cap + interlinea + m, ic + wm, fondo)
+
+
 def cols(v, negativo):
     if negativo:
         return v["neg1"], v["neg2"], v["fondo_neg"]
@@ -99,6 +157,10 @@ def main():
         guardar(f"{clave}/{clave}_vertical_negativo", vertical(v, True), DIR_SALIDA)
         guardar(f"{clave}/{clave}_icono", icono(v), DIR_SALIDA)
         guardar(f"{clave}/{clave}_icono_claro", icono(v, False), DIR_SALIDA)
+        guardar(f"{clave}/{clave}_horizontal_2lineas", horizontal_2_lineas(v), DIR_SALIDA)
+        guardar(f"{clave}/{clave}_horizontal_2lineas_negativo", horizontal_2_lineas(v, True), DIR_SALIDA)
+        guardar(f"{clave}/{clave}_vertical_2lineas", vertical_2_lineas(v), DIR_SALIDA)
+        guardar(f"{clave}/{clave}_vertical_2lineas_negativo", vertical_2_lineas(v, True), DIR_SALIDA)
     print("Listo:", DIR_SALIDA)
 
 
