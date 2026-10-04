@@ -77,7 +77,7 @@ def tinta(cadena, cap, tracking, peso=700):
 # En dos líneas ZYL va ~2x más grande; para que el grosor del trazo se vea
 # parejo, MUNDO sube de peso y ZYL baja.
 PESO_MUNDO_2L = 800
-PESO_ZYL_2L = 500
+PESO_ZYL_2L = 600
 
 
 def proporcion_zyl(tr=0.06):

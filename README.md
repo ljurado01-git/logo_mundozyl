@@ -9,7 +9,7 @@ Reproducción vectorial, depurada, de la referencia aportada por el cliente: una
 - **H1 · Negro + azul** (`#141414` / `#0E9BE8`): fiel a la referencia.
 - **H2 · Azul profundo + azul** (`#0B2545` / `#0E9BE8`): variante más corporativa.
 
-**Elegida: H2.** Incluye además versiones con el nombre en **dos líneas**: MUNDO (Montserrat ExtraBold) sobre ZYL más grande (Montserrat Medium), ambas al mismo ancho y con grosor de trazo equilibrado: `*_horizontal_2lineas*` y `*_vertical_2lineas*` (ver `propuestas/ronda3/lamina_H2_2lineas.png`).
+**Elegida: H2.** Incluye además versiones con el nombre en **dos líneas**: MUNDO (Montserrat ExtraBold) sobre ZYL más grande (Montserrat SemiBold), ambas al mismo ancho y con grosor de trazo equilibrado: `*_horizontal_2lineas*` y `*_vertical_2lineas*` (ver `propuestas/ronda3/lamina_H2_2lineas.png`).
 
 Ver `propuestas/ronda3/lamina_comparativa.png`. Regenerar: `python3 herramientas/generar_logos_ronda3.py`
 
