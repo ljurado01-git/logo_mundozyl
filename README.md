@@ -2,7 +2,16 @@
 
 **Mundo Electronic ZYL** · Caracas, Venezuela · Equipos de computación, redes, telecomunicaciones y seguridad para empresas.
 
-## Ronda 2 (vigente)
+## Ronda 3 (vigente) — Monograma M
+
+Reproducción vectorial, depurada, de la referencia aportada por el cliente: una **M plegada** (cinta) con el tallo izquierdo y la V en oscuro y la diagonal + tallo derecho en azul. Geometría regularizada: todas las diagonales con la misma pendiente y grosor, ranuras de separación constantes. Wordmark en Montserrat Bold con espaciado amplio.
+
+- **H1 · Negro + azul** (`#141414` / `#0E9BE8`): fiel a la referencia.
+- **H2 · Azul profundo + azul** (`#0B2545` / `#0E9BE8`): variante más corporativa.
+
+Ver `propuestas/ronda3/lamina_comparativa.png`. Regenerar: `python3 herramientas/generar_logos_ronda3.py`
+
+## Ronda 2
 
 Feedback de la ronda 1: no gustó el globo ni la tipografía y faltaba impacto. Nueva dirección: **logo diferente al actual (sin globo)**, que transmita **solidez y confianza**, con tipografías más fuertes. Símbolo construido sobre la **Z** de ZYL.
 
@@ -46,4 +55,5 @@ Tipografías de Google Fonts (licencia OFL, uso comercial libre).
 pip install fonttools cairosvg
 python3 herramientas/generar_logos.py          # ronda 1
 python3 herramientas/generar_logos_ronda2.py   # ronda 2
+python3 herramientas/generar_logos_ronda3.py   # ronda 3
 ```
