@@ -25,6 +25,7 @@
   --paso: clamp(16px, 2.2vw, 28px);
 }
 * { box-sizing: border-box; }
+html, body { margin: 0; }
 html { background: #E7ECF2; }
 body {
   background: #E7ECF2;
@@ -245,7 +246,7 @@ svg { display: block; max-width: 100%; height: auto; }
 @media print {
   html, body { background: #fff; }
   body { padding: 0; }
-  .lamina { width: 297mm; height: 210mm; max-width: none; aspect-ratio: auto; margin: 0; padding: 14mm 16mm; page-break-after: always; break-after: page; }
+  .lamina { width: 297mm; height: 209.4mm; break-inside: avoid; max-width: none; aspect-ratio: auto; margin: 0; padding: 14mm 16mm; page-break-after: always; break-after: page; }
   .lamina:last-child { page-break-after: auto; break-after: auto; }
   * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 }
