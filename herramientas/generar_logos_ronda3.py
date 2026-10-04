@@ -60,9 +60,9 @@ def wordmark(x, y_base, cap, c1, c2):
     return f'<path d="{d1}" fill="{c1}"/><path d="{d2}" fill="{c2}"/>', w1 + sep + w2
 
 
-def tinta(cadena, cap, tracking):
+def tinta(cadena, cap, tracking, peso=700):
     """Límites horizontales reales (sin márgenes laterales) del texto en x=0."""
-    f = fuente("montserrat", 700)
+    f = fuente("montserrat", peso)
     gs, cmap = f.getGlyphSet(), f.getBestCmap()
     esc = cap / f["OS/2"].sCapHeight
     pen = BoundsPen(gs)
@@ -74,45 +74,55 @@ def tinta(cadena, cap, tracking):
     return pen.bounds[0], pen.bounds[2]
 
 
+# En dos líneas ZYL va ~2x más grande; para que el grosor del trazo se vea
+# parejo, MUNDO sube de peso y ZYL baja.
+PESO_MUNDO_2L = 800
+PESO_ZYL_2L = 500
+
+
+def proporcion_zyl(tr=0.06):
+    """Cuánto más alto debe ser ZYL que MUNDO para ocupar el mismo ancho."""
+    a0, a1 = tinta("MUNDO", 100, tr, PESO_MUNDO_2L)
+    b0, b1 = tinta("ZYL", 100, tr, PESO_ZYL_2L)
+    return (a1 - a0) / (b1 - b0)
+
+
 def wordmark_2_lineas(x, y_top, cap, interlinea, c1, c2):
-    """MUNDO sobre ZYL, ambas líneas justificadas al mismo ancho de tinta."""
+    """MUNDO sobre ZYL; ZYL se escala (mismo espaciado) hasta igualar el ancho de tinta."""
     tr = 0.06
-    a0, a1 = tinta("MUNDO", cap, tr)
-    ancho = a1 - a0
-    upm_px = 1000 * cap / fuente("montserrat", 700)["OS/2"].sCapHeight
-    b0, b1 = tinta("ZYL", cap, 0)
-    tr_zyl = (ancho - (b1 - b0)) / 2 / upm_px
-    b0, b1 = tinta("ZYL", cap, tr_zyl)
+    cap2 = cap * proporcion_zyl(tr)
+    a0, a1 = tinta("MUNDO", cap, tr, PESO_MUNDO_2L)
+    b0, _ = tinta("ZYL", cap2, tr, PESO_ZYL_2L)
     y1 = y_top + cap
-    y2 = y1 + interlinea + cap
-    d1, _ = texto("montserrat", 700, "MUNDO", cap, x - a0, y1, tr)
-    d2, _ = texto("montserrat", 700, "ZYL", cap, x - b0, y2, tr_zyl)
-    return f'<path d="{d1}" fill="{c1}"/><path d="{d2}" fill="{c2}"/>', ancho
+    y2 = y1 + interlinea + cap2
+    d1, _ = texto("montserrat", PESO_MUNDO_2L, "MUNDO", cap, x - a0, y1, tr)
+    d2, _ = texto("montserrat", PESO_ZYL_2L, "ZYL", cap2, x - b0, y2, tr)
+    return f'<path d="{d1}" fill="{c1}"/><path d="{d2}" fill="{c2}"/>', a1 - a0, cap + interlinea + cap2
 
 
 def horizontal_2_lineas(v, negativo=False):
     """Símbolo a la izquierda; las dos líneas ocupan exactamente su altura."""
     c1, c2, fondo = cols(v, negativo)
     s, m = 220, 70
-    interlinea = s * 0.16
-    cap = (s - interlinea) / 2
+    interlinea = s * 0.10
+    cap = (s - interlinea) / (1 + proporcion_zyl())
     ic = monograma(m, m, s, c1, c2)
     x = m + s + s * 0.16
-    wm, w = wordmark_2_lineas(x, m, cap, interlinea, c1, c2)
+    wm, w, _ = wordmark_2_lineas(x, m, cap, interlinea, c1, c2)
     return svg_doc(x + w + m, s + 2 * m, ic + wm, fondo)
 
 
 def vertical_2_lineas(v, negativo=False):
     c1, c2, fondo = cols(v, negativo)
     s, m = 240, 70
-    cap = 78
-    interlinea = cap * 0.30
-    _, w = wordmark_2_lineas(0, 0, cap, interlinea, c1, c2)
+    cap = 70
+    interlinea = cap * 0.28
+    _, w, h = wordmark_2_lineas(0, 0, cap, interlinea, c1, c2)
     ancho = max(s, w) + 2 * m
     ic = monograma(ancho / 2 - s / 2, m, s, c1, c2)
     y_top = m + s + cap * 0.6
-    wm, _ = wordmark_2_lineas(ancho / 2 - w / 2, y_top, cap, interlinea, c1, c2)
-    return svg_doc(ancho, y_top + 2 * cap + interlinea + m, ic + wm, fondo)
+    wm, _, _ = wordmark_2_lineas(ancho / 2 - w / 2, y_top, cap, interlinea, c1, c2)
+    return svg_doc(ancho, y_top + h + m, ic + wm, fondo)
 
 
 def cols(v, negativo):
