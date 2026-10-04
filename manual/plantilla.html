@@ -1,0 +1,468 @@
+<title>Manual de Marca MUNDOZYL</title>
+<style>
+/* Layout: láminas apaisadas (proporción A4 horizontal) apiladas; cada lámina = una página del PDF. */
+@font-face {
+  font-family: "Montserrat";
+  src: url(data:font/woff;base64,{{FUENTE}}) format("woff");
+  font-weight: 100 900;
+  font-display: block;
+}
+:root {
+  /* Estilo único (claro) por decisión: un manual de marca muestra los colores reales sobre papel. */
+  color-scheme: light;
+  --azul-profundo: #0B2545;
+  --azul-zyl: #0E9BE8;
+  --azul-cielo: #5AA9FF;
+  --grafito: #5B6B7F;
+  --niebla: #F3F6FA;
+  --linea: #DCE3EC;
+  --blanco: #FFFFFF;
+  --error: #D93B3B;
+  --tinta: #0B2545;
+  --display: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+  --texto: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+  --mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, "DejaVu Sans Mono", monospace;
+  --paso: clamp(16px, 2.2vw, 28px);
+}
+* { box-sizing: border-box; }
+html { background: #E7ECF2; }
+body {
+  background: #E7ECF2;
+  color: var(--tinta);
+  font-family: var(--texto);
+  font-size: 15px;
+  line-height: 1.55;
+  padding-block: 32px;
+  padding-inline: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+.lamina {
+  max-width: 1120px;
+  margin: 0 auto 32px;
+  background: var(--blanco);
+  aspect-ratio: 297 / 210;
+  padding: clamp(20px, 4.2vw, 56px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--paso);
+  position: relative;
+  overflow: hidden;
+  max-width: min(1120px, 100%);
+}
+.cabecera {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  border-bottom: 1px solid var(--linea);
+  padding-bottom: 12px;
+}
+.cabecera .cap {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--azul-zyl);
+}
+.cabecera .marca { font-size: 11px; font-weight: 600; letter-spacing: 0.16em; color: var(--grafito); }
+h1, h2, h3 { font-family: var(--display); margin: 0; text-wrap: balance; }
+h2 { font-size: clamp(22px, 3vw, 34px); font-weight: 800; letter-spacing: -0.01em; line-height: 1.1; }
+h3 { font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+p { margin: 0; max-width: 62ch; }
+.nota { font-size: 12.5px; color: var(--grafito); }
+.cuerpo { flex: 1; display: grid; gap: var(--paso); min-height: 0; }
+.dos { grid-template-columns: 1fr 1.35fr; align-items: center; }
+.min0 { min-width: 0; }
+.pie { font-size: 10.5px; color: var(--grafito); letter-spacing: 0.06em; display: flex; justify-content: space-between; }
+svg { display: block; max-width: 100%; height: auto; }
+
+/* Portada */
+.portada { background: var(--azul-profundo); color: var(--blanco); justify-content: space-between; }
+.portada .cabecera { border-color: rgba(255,255,255,0.18); }
+.portada .cabecera .marca { color: rgba(255,255,255,0.7); }
+.portada .cabecera .cap { color: var(--azul-cielo); }
+.portada .logo-portada { width: min(560px, 80%); }
+.portada h1 { font-size: clamp(28px, 4.4vw, 54px); font-weight: 800; line-height: 1.02; letter-spacing: -0.015em; }
+.portada .sub { color: rgba(255,255,255,0.72); font-size: 14px; }
+.diagonales { position: absolute; right: -6%; bottom: -10%; width: 52%; opacity: 0.16; pointer-events: none; }
+
+/* Versiones */
+.versiones { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: auto auto; }
+.version { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.version .caja { background: var(--niebla); display: grid; place-items: center; padding: clamp(14px, 2.4vw, 30px); flex: 1; }
+.version .caja.oscura { background: var(--azul-profundo); }
+.version .caja svg { max-height: 120px; width: auto; }
+.version .uso { font-size: 12.5px; color: var(--grafito); }
+.version h3 { color: var(--azul-profundo); }
+.version h3 span { color: var(--azul-zyl); font-weight: 600; letter-spacing: 0.04em; text-transform: none; margin-left: 6px; }
+
+/* Construcción */
+.construccion { grid-template-columns: 1.3fr 1fr; align-items: center; }
+.zona { position: relative; padding: 9%; border: 1.5px dashed var(--azul-zyl); background: repeating-linear-gradient(135deg, rgba(14,155,232,0.07) 0 6px, transparent 6px 12px); }
+.zona .interior { background: var(--blanco); padding: 4px; }
+.zona .x { position: absolute; font: 700 12px var(--mono); color: var(--azul-zyl); }
+.zona .x.t { top: 2%; left: 50%; transform: translateX(-50%); }
+.zona .x.l { left: 2.5%; top: 50%; transform: translateY(-50%); }
+.tabla-min { width: 100%; border-collapse: collapse; font-size: 13px; font-variant-numeric: tabular-nums; }
+.tabla-min th, .tabla-min td { text-align: left; padding: 8px 6px; border-bottom: 1px solid var(--linea); }
+.tabla-min th { font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--grafito); font-weight: 700; }
+.tabla-min td:not(:first-child) { font-family: var(--mono); font-size: 12.5px; }
+
+/* Color */
+.colores { grid-template-columns: repeat(5, minmax(0, 1fr)); align-items: stretch; }
+.muestra { display: flex; flex-direction: column; min-width: 0; border: 1px solid var(--linea); }
+.muestra .chip { flex: 1; min-height: 110px; padding: 14px; display: flex; align-items: flex-end; font-weight: 800; font-size: 13px; letter-spacing: 0.02em; }
+.muestra dl { margin: 0; padding: 12px 14px; height: 140px; flex: none; align-content: start; display: grid; grid-template-columns: auto 1fr; gap: 3px 10px; font-size: 11.5px; }
+.muestra dt { color: var(--grafito); font-weight: 600; }
+.muestra dd { margin: 0; font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.proporcion { display: flex; height: 18px; }
+.proporcion span { display: block; height: 100%; }
+
+/* Tipografía */
+.tipos { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); align-items: start; }
+.especimen { font-size: clamp(48px, 7vw, 88px); font-weight: 800; line-height: 0.9; letter-spacing: -0.02em; color: var(--azul-profundo); }
+.especimen span { color: var(--azul-zyl); }
+.alfabeto { font-size: 15px; letter-spacing: 0.04em; color: var(--grafito); word-break: break-all; }
+.jerarquia { display: grid; gap: 14px; }
+.jerarquia > div { display: grid; grid-template-columns: 92px 1fr; gap: 12px; align-items: baseline; border-bottom: 1px solid var(--linea); padding-bottom: 10px; }
+.jerarquia .tag { font: 600 10.5px var(--mono); color: var(--grafito); }
+
+/* Usos incorrectos */
+.incorrectos { grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: 1fr; }
+.mal { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.mal .caja { background: var(--niebla); flex: 1; display: grid; place-items: center; padding: 16px; position: relative; min-height: 110px; overflow: hidden; }
+.mal .caja svg { width: 86%; }
+.mal .equis { position: absolute; top: 8px; right: 8px; width: 22px; height: 22px; border-radius: 50%; background: var(--error); color: #fff; font-size: 12px; font-weight: 800; display: grid; place-items: center; }
+.mal p { font-size: 12px; color: var(--grafito); }
+.mal p b { color: var(--tinta); }
+
+/* Fondos */
+.fondos { grid-template-columns: repeat(4, minmax(0, 1fr)); align-content: center; }
+.fondo { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.fondo .caja { aspect-ratio: 1 / 1.05; display: grid; place-items: center; padding: 14%; }
+.fondo p { font-size: 12px; color: var(--grafito); }
+.foto { background: linear-gradient(120deg, rgba(11,37,69,0.88), rgba(11,37,69,0.62)), repeating-linear-gradient(90deg, #3a4d63 0 18px, #2c3e53 18px 22px, #4a5f78 22px 46px); }
+
+/* Mockups */
+.mock-titulo { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; }
+.marco { background: var(--niebla); display: grid; place-items: center; padding: clamp(12px, 2.4vw, 32px); min-width: 0; }
+
+.navegador { width: 100%; background: #fff; box-shadow: 0 18px 50px rgba(11,37,69,0.18); overflow: hidden; }
+.navegador .barra { height: 30px; background: #E9EEF4; display: flex; align-items: center; gap: 6px; padding: 0 12px; }
+.navegador .barra i { width: 9px; height: 9px; border-radius: 50%; background: #C5CFDB; display: block; }
+.navegador .barra .url { margin-left: 14px; background: #fff; border-radius: 4px; font: 11px var(--mono); color: var(--grafito); padding: 3px 12px; }
+.web-nav { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 14px 4%; border-bottom: 1px solid var(--linea); }
+.web-nav svg { height: 30px; width: auto; }
+.web-nav ul { display: flex; gap: 22px; list-style: none; margin: 0; padding: 0; font-size: 12.5px; font-weight: 600; color: var(--azul-profundo); }
+.boton { display: inline-block; background: var(--azul-zyl); color: #fff; font-weight: 700; font-size: 12.5px; padding: 10px 18px; letter-spacing: 0.02em; }
+.boton.claro { background: transparent; color: #fff; box-shadow: inset 0 0 0 1.5px rgba(255,255,255,0.5); }
+.web-hero { background: var(--azul-profundo); color: #fff; padding: 6% 4%; display: grid; grid-template-columns: 1.3fr 1fr; gap: 24px; align-items: center; position: relative; overflow: hidden; }
+.web-hero .eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--azul-cielo); }
+.web-hero h1 { font-size: clamp(22px, 3.2vw, 38px); font-weight: 800; line-height: 1.08; margin: 10px 0 12px; }
+.web-hero p { color: rgba(255,255,255,0.78); font-size: 13.5px; max-width: 46ch; }
+.web-hero .acciones { display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
+.web-hero .gran-m { justify-self: end; width: 78%; opacity: 0.95; }
+.web-cats { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); border-top: 1px solid var(--linea); }
+.web-cats div { padding: 14px 8px; font-size: 11px; font-weight: 700; color: var(--azul-profundo); text-align: center; border-right: 1px solid var(--linea); }
+.web-cats div:last-child { border-right: 0; }
+.web-cats div::before { content: ""; display: block; width: 18px; height: 3px; background: var(--azul-zyl); margin: 0 auto 8px; transform: skewY(-36deg); }
+
+.tarjetas { display: flex; gap: clamp(16px, 3vw, 40px); flex-wrap: wrap; justify-content: center; align-items: center; }
+.tarjeta { width: min(400px, 100%); aspect-ratio: 85 / 55; box-shadow: 0 14px 34px rgba(11,37,69,0.2); position: relative; overflow: hidden; }
+.tarjeta.frente { background: var(--azul-profundo); display: grid; place-items: center; }
+.tarjeta.frente svg { width: 46%; }
+.tarjeta.frente .diag { position: absolute; right: -12%; bottom: -60%; width: 62%; opacity: 0.14; }
+.tarjeta.dorso { background: #fff; padding: 7% 8%; display: flex; flex-direction: column; justify-content: space-between; }
+.tarjeta.dorso .nombre { font-size: 17px; font-weight: 800; color: var(--azul-profundo); line-height: 1.15; }
+.tarjeta.dorso .cargo { font-size: 10.5px; font-weight: 600; color: var(--azul-zyl); letter-spacing: 0.06em; text-transform: uppercase; }
+.tarjeta.dorso ul { list-style: none; margin: 0; padding: 0; font-size: 10.5px; color: var(--azul-profundo); display: grid; gap: 2px; font-weight: 500; }
+.tarjeta.dorso .iso { position: absolute; right: 8%; top: 9%; width: 13%; }
+.tarjeta.dorso .franja { position: absolute; left: 0; right: 0; bottom: 0; height: 5px; background: linear-gradient(90deg, var(--azul-profundo) 0 60%, var(--azul-zyl) 60% 100%); }
+
+.redes { display: grid; grid-template-columns: 1fr 1.25fr; gap: clamp(14px, 2.4vw, 28px); width: 100%; align-items: start; }
+.telefono { background: #fff; box-shadow: 0 14px 34px rgba(11,37,69,0.18); padding: 16px; max-width: 340px; width: 100%; justify-self: center; }
+.perfil { display: flex; gap: 14px; align-items: center; }
+.perfil .avatar { width: 64px; height: 64px; border-radius: 50%; overflow: hidden; flex: none; }
+.perfil .avatar svg { width: 100%; height: 100%; }
+.perfil b { font-size: 13px; }
+.perfil .cifras { display: flex; gap: 14px; font-size: 11px; color: var(--grafito); }
+.perfil .cifras strong { color: var(--tinta); display: block; font-size: 13px; }
+.bio { font-size: 11.5px; margin: 10px 0 12px; line-height: 1.45; }
+.bio b { display: block; }
+.grilla { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; }
+.post { aspect-ratio: 1; display: flex; flex-direction: column; justify-content: flex-end; padding: 8px; font-size: 9.5px; font-weight: 800; line-height: 1.15; position: relative; overflow: hidden; }
+.post.p1 { background: var(--azul-profundo); color: #fff; }
+.post.p2 { background: var(--azul-zyl); color: #fff; }
+.post.p3 { background: var(--niebla); color: var(--azul-profundo); }
+.post small { display: block; font-weight: 600; font-size: 7.5px; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.8; margin-bottom: 3px; }
+.post .mini-m { position: absolute; top: 8px; left: 8px; width: 22%; }
+.banner { aspect-ratio: 1584 / 396; background: var(--azul-profundo); position: relative; overflow: hidden; display: flex; align-items: center; padding: 0 6%; box-shadow: 0 14px 34px rgba(11,37,69,0.18); }
+.banner .txt { color: #fff; font-weight: 800; font-size: clamp(13px, 1.8vw, 22px); line-height: 1.15; max-width: 60%; position: relative; }
+.banner .txt span { color: var(--azul-cielo); }
+.banner .diag { position: absolute; right: -4%; top: -30%; width: 46%; opacity: 0.2; }
+.columna { display: grid; gap: 14px; min-width: 0; }
+.post-grande { aspect-ratio: 1; background: var(--azul-profundo); color: #fff; position: relative; overflow: hidden; padding: 7%; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 14px 34px rgba(11,37,69,0.18); }
+.post-grande h4 { margin: 0; font-size: clamp(16px, 2.2vw, 26px); font-weight: 800; line-height: 1.1; }
+.post-grande .det { font-size: 11px; color: rgba(255,255,255,0.75); }
+.post-grande .logo-pie svg { height: 26px; width: auto; }
+.post-grande .diag { position: absolute; right: -10%; top: -10%; width: 60%; opacity: 0.14; }
+.fila-redes { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+.papeleria { display: flex; gap: clamp(16px, 3vw, 40px); align-items: flex-end; justify-content: center; flex-wrap: wrap; }
+.hoja { width: min(330px, 100%); aspect-ratio: 210 / 297; background: #fff; box-shadow: 0 14px 34px rgba(11,37,69,0.18); padding: 9% 10% 7%; display: flex; flex-direction: column; position: relative; }
+.hoja .enc { display: flex; justify-content: space-between; align-items: flex-start; }
+.hoja .enc svg { width: 44%; }
+.hoja .enc small { font-size: 7px; color: var(--grafito); text-align: right; line-height: 1.5; }
+.hoja .lineas { margin-top: 16%; display: grid; gap: 7px; }
+.hoja .lineas i { display: block; height: 4px; background: #E6EBF1; }
+.hoja .lineas i:nth-child(1) { width: 40%; background: var(--azul-profundo); height: 6px; }
+.hoja .lineas i:nth-child(6), .hoja .lineas i:nth-child(11) { width: 70%; }
+.hoja .pie-hoja { margin-top: auto; border-top: 1px solid var(--linea); padding-top: 6px; font-size: 6.5px; color: var(--grafito); display: flex; justify-content: space-between; gap: 6px; }
+.hoja .franja { position: absolute; left: 0; top: 0; bottom: 0; width: 5px; background: linear-gradient(180deg, var(--azul-profundo) 0 70%, var(--azul-zyl) 70% 100%); }
+.sobre { width: min(400px, 100%); aspect-ratio: 220 / 110; background: #fff; box-shadow: 0 14px 34px rgba(11,37,69,0.18); padding: 5% 6%; position: relative; }
+.sobre svg { width: 34%; }
+.sobre .dest { position: absolute; left: 46%; top: 52%; display: grid; gap: 5px; width: 40%; }
+.sobre .dest i { display: block; height: 4px; background: #E6EBF1; }
+.sobre .franja { position: absolute; left: 0; right: 0; bottom: 0; height: 5px; background: linear-gradient(90deg, var(--azul-profundo) 0 70%, var(--azul-zyl) 70% 100%); }
+.firma { background: #fff; box-shadow: 0 14px 34px rgba(11,37,69,0.18); padding: 18px 20px; width: min(400px, 100%); display: flex; gap: 16px; align-items: center; }
+.firma svg { width: 64px; flex: none; }
+.firma .sep { width: 1.5px; align-self: stretch; background: var(--azul-zyl); }
+.firma div { font-size: 11px; line-height: 1.45; }
+.firma b { font-size: 13px; color: var(--azul-profundo); }
+
+@media (max-width: 760px) {
+  .lamina { aspect-ratio: auto; }
+  .dos, .construccion, .tipos, .redes, .fila-redes { grid-template-columns: 1fr; }
+  .versiones { grid-template-columns: 1fr; }
+  .colores { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .incorrectos, .fondos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .web-hero { grid-template-columns: 1fr; }
+  .web-hero .gran-m { display: none; }
+  .web-nav ul { display: none; }
+  .web-cats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@page { size: A4 landscape; margin: 0; }
+@media print {
+  html, body { background: #fff; }
+  body { padding: 0; }
+  .lamina { width: 297mm; height: 210mm; max-width: none; aspect-ratio: auto; margin: 0; padding: 14mm 16mm; page-break-after: always; break-after: page; }
+  .lamina:last-child { page-break-after: auto; break-after: auto; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+
+<!-- 1 · Portada -->
+<section class="lamina portada">
+  <div class="cabecera"><span class="cap">Manual de identidad visual</span><span class="marca">VERSIÓN 1.0 · 2026</span></div>
+  <div style="display:grid; gap:28px;">
+    <div class="logo-portada">{{SVG:negativo/mundozyl_principal_2lineas_negativo_transparente}}</div>
+    <h1>Manual de marca</h1>
+    <p class="sub">Mundo Electronic ZYL · Caracas, Venezuela<br>Equipos de computación, redes, telecomunicaciones y seguridad para empresas.</p>
+  </div>
+  <div class="pie" style="color:rgba(255,255,255,0.6)"><span>Uso interno y proveedores</span><span>mundozyl</span></div>
+  <div class="diagonales">{{DIAGONALES}}</div>
+</section>
+
+<!-- 2 · Concepto -->
+<section class="lamina">
+  <div class="cabecera"><span class="cap">01 · La marca</span><span class="marca">MUNDOZYL</span></div>
+  <div class="cuerpo dos">
+    <div style="display:grid; gap:18px;" class="min0">
+      <h2>Una M construida como una pieza de hardware</h2>
+      <p>El símbolo es una <b>M</b> formada por piezas sólidas que encajan con ranuras exactas, como los componentes de un equipo bien ensamblado. Transmite lo que la empresa ofrece a sus clientes corporativos: <b>solidez, precisión y confianza</b>.</p>
+      <p>Las dos piezas de color cuentan la propuesta: el <b>azul profundo</b> es la base estable (respaldo, garantía, trayectoria) y el <b>azul ZYL</b> es la pieza que se eleva (tecnología, soluciones, crecimiento).</p>
+      <p class="nota">Todas las diagonales comparten la misma inclinación (36°) y el mismo grosor. Esa diagonal es también el recurso gráfico de la marca.</p>
+    </div>
+    <div class="marco" style="padding:8%;">{{SVG:color/mundozyl_isotipo}}</div>
+  </div>
+  <div class="pie"><span>Manual de marca MUNDOZYL</span><span>02</span></div>
+</section>
+
+<!-- 3 · Versiones -->
+<section class="lamina">
+  <div class="cabecera"><span class="cap">02 · Versiones del logo</span><span class="marca">MUNDOZYL</span></div>
+  <div class="cuerpo versiones">
+    <div class="version"><h3>Principal <span>horizontal, dos líneas</span></h3><div class="caja">{{SVG:color/mundozyl_principal_2lineas}}</div><p class="uso">Uso preferente: web, papelería, documentos, firmas, presentaciones.</p></div>
+    <div class="version"><h3>Vertical <span>apilada</span></h3><div class="caja">{{SVG:color/mundozyl_vertical}}</div><p class="uso">Espacios cuadrados o altos: portadas, pendones, vitrinas, etiquetas.</p></div>
+    <div class="version"><h3>Horizontal <span>una línea</span></h3><div class="caja oscura">{{SVG:negativo/mundozyl_horizontal_1linea_negativo_transparente}}</div><p class="uso">Espacios muy anchos y bajos: menú de la web, pie de página, rotulación de vehículos.</p></div>
+    <div class="version"><h3>Isotipo <span>la M sola</span></h3><div class="caja">{{SVG:color/mundozyl_isotipo}}</div><p class="uso">Perfil de redes sociales, favicon, sellos, detalles. Solo cuando el nombre ya aparece cerca o la marca es conocida.</p></div>
+  </div>
+  <div class="pie"><span>Manual de marca MUNDOZYL</span><span>03</span></div>
+</section>
+
+<!-- 4 · Área de protección y tamaños mínimos -->
+<section class="lamina">
+  <div class="cabecera"><span class="cap">03 · Área de protección y tamaño mínimo</span><span class="marca">MUNDOZYL</span></div>
+  <div class="cuerpo construccion">
+    <div class="zona"><span class="x t">x</span><span class="x l">x</span><div class="interior">{{SVG:color/mundozyl_principal_2lineas}}</div></div>
+    <div style="display:grid; gap:18px;" class="min0">
+      <h2>Aire alrededor del logo</h2>
+      <p><b>x</b> = altura de la palabra «MUNDO». Ningún texto, imagen o borde debe entrar en el área de protección de <b>1x</b> alrededor del logo.</p>
+      <table class="tabla-min">
+        <thead><tr><th>Versión</th><th>Impreso</th><th>Pantalla</th></tr></thead>
+        <tbody>
+          <tr><td>Principal 2 líneas</td><td>30 mm</td><td>120 px</td></tr>
+          <tr><td>Horizontal 1 línea</td><td>40 mm</td><td>160 px</td></tr>
+          <tr><td>Vertical</td><td>20 mm</td><td>90 px</td></tr>
+          <tr><td>Isotipo</td><td>8 mm</td><td>24 px</td></tr>
+        </tbody>
+      </table>
+      <p class="nota">Medidas de ancho total. Por debajo de estos tamaños el nombre pierde legibilidad: use el isotipo.</p>
+    </div>
+  </div>
+  <div class="pie"><span>Manual de marca MUNDOZYL</span><span>04</span></div>
+</section>
+
+<!-- 5 · Color -->
+<section class="lamina">
+  <div class="cabecera"><span class="cap">04 · Paleta de color</span><span class="marca">MUNDOZYL</span></div>
+  <div style="display:grid; gap:10px;">
+    <h2>Dos azules principales, tres de apoyo</h2>
+    <p class="nota">Proporción recomendada en una pieza: mucho blanco y azul profundo, el azul ZYL como acento.</p>
+    <div class="proporcion"><span style="width:45%; background:var(--blanco); box-shadow: inset 0 0 0 1px var(--linea);"></span><span style="width:30%; background:var(--azul-profundo)"></span><span style="width:12%; background:var(--azul-zyl)"></span><span style="width:8%; background:var(--niebla)"></span><span style="width:5%; background:var(--grafito)"></span></div>
+  </div>
+  <div class="cuerpo colores">
+    {{COLORES}}
+  </div>
+  <div class="pie"><span>CMYK de referencia: valide siempre con una prueba de color de la imprenta.</span><span>05</span></div>
+</section>
+
+<!-- 6 · Tipografía -->
+<section class="lamina">
+  <div class="cabecera"><span class="cap">05 · Tipografía</span><span class="marca">MUNDOZYL</span></div>
+  <div class="cuerpo tipos">
+    <div style="display:grid; gap:16px;" class="min0">
+      <div class="especimen">Mont<span>serrat</span></div>
+      <p class="alfabeto">ABCDEFGHIJKLMNÑOPQRSTUVWXYZ<br>abcdefghijklmnñopqrstuvwxyz<br>0123456789 ¿?¡! @ $ % &amp; ( )</p>
+      <p>Tipografía de la marca y del logotipo. Geométrica, sólida y muy legible en pantalla y en papel. Es gratuita (Google Fonts, licencia OFL), incluido el uso comercial y web.</p>
+      <p class="nota">En documentos de Word, Excel o correos donde no esté instalada, use <b>Arial</b> como alternativa.</p>
+    </div>
+    <div class="jerarquia min0">
+      <div><span class="tag">ExtraBold 800</span><span style="font-weight:800; font-size:26px; line-height:1.1">Titulares y cifras</span></div>
+      <div><span class="tag">Bold 700</span><span style="font-weight:700; font-size:18px">Subtítulos y botones</span></div>
+      <div><span class="tag">SemiBold 600</span><span style="font-weight:600; font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:var(--azul-zyl)">Etiquetas · categorías</span></div>
+      <div><span class="tag">Regular 400</span><span style="font-weight:400; font-size:14px">Textos corridos, descripciones de productos, condiciones de garantía y documentos.</span></div>
+      <div><span class="tag">Medium 500</span><span style="font-weight:500; font-size:12px; color:var(--grafito)">Notas, pies de foto, datos de contacto</span></div>
+    </div>
+  </div>
+  <div class="pie"><span>Manual de marca MUNDOZYL</span><span>06</span></div>
+</section>
+
+<!-- 7 · Fondos -->
+<section class="lamina">
+  <div class="cabecera"><span class="cap">06 · Fondos permitidos</span><span class="marca">MUNDOZYL</span></div>
+  <h2>Contraste siempre alto</h2>
+  <div class="cuerpo fondos">
+    <div class="fondo"><div class="caja" style="background:#fff; box-shadow: inset 0 0 0 1px var(--linea)">{{SVG:color/mundozyl_principal_2lineas}}</div><p><b>Blanco o niebla:</b> versión a color.</p></div>
+    <div class="fondo"><div class="caja" style="background:var(--azul-profundo)">{{SVG:negativo/mundozyl_principal_2lineas_negativo_transparente}}</div><p><b>Azul profundo:</b> versión negativa.</p></div>
+    <div class="fondo"><div class="caja" style="background:var(--azul-zyl)">{{SVG:una_tinta/mundozyl_principal_2lineas_blanco}}</div><p><b>Azul ZYL u otros colores:</b> versión en blanco.</p></div>
+    <div class="fondo"><div class="caja foto">{{SVG:negativo/mundozyl_principal_2lineas_negativo_transparente}}</div><p><b>Fotografía:</b> con capa de azul profundo al 60–90 %.</p></div>
+  </div>
+  <p class="nota">Para impresión a una sola tinta (sellos, facturas, grabado láser, bordado) use las versiones en azul profundo, negro o blanco de la carpeta <b>una_tinta</b>.</p>
+  <div class="pie"><span>Manual de marca MUNDOZYL</span><span>07</span></div>
+</section>
+
+<!-- 8 · Usos incorrectos -->
+<section class="lamina">
+  <div class="cabecera"><span class="cap">07 · Usos incorrectos</span><span class="marca">MUNDOZYL</span></div>
+  <h2>Lo que nunca se hace con el logo</h2>
+  <div class="cuerpo incorrectos">
+    <div class="mal"><div class="caja"><span class="equis">✕</span><div style="transform:scaleX(1.45); width:70%">{{SVG:color/mundozyl_principal_2lineas}}</div></div><p><b>Deformar.</b> Escale siempre en proporción.</p></div>
+    <div class="mal"><div class="caja"><span class="equis">✕</span><div style="transform:rotate(-14deg); width:86%">{{SVG:color/mundozyl_principal_2lineas}}</div></div><p><b>Rotar o inclinar.</b></p></div>
+    <div class="mal"><div class="caja"><span class="equis">✕</span><div style="filter:hue-rotate(150deg) saturate(1.6); width:86%">{{SVG:color/mundozyl_principal_2lineas}}</div></div><p><b>Cambiar los colores</b> fuera de la paleta.</p></div>
+    <div class="mal"><div class="caja"><span class="equis">✕</span><div style="filter:drop-shadow(5px 6px 3px rgba(0,0,0,0.55)); width:86%">{{SVG:color/mundozyl_principal_2lineas}}</div></div><p><b>Añadir sombras,</b> brillos, biseles o 3D.</p></div>
+    <div class="mal"><div class="caja" style="background:var(--azul-zyl)"><span class="equis">✕</span>{{SVG:color/mundozyl_principal_2lineas}}</div><p><b>Fondos sin contraste</b> o con la versión equivocada.</p></div>
+    <div class="mal"><div class="caja"><span class="equis">✕</span><div style="display:flex; align-items:center; gap:8px; width:86%"><div style="width:32%">{{SVG:color/mundozyl_isotipo}}</div><span style="font-family: Georgia, 'Times New Roman', serif; font-size:22px; color:var(--azul-profundo); font-style:italic">Mundozyl</span></div></div><p><b>Cambiar la tipografía</b> o reescribir el nombre.</p></div>
+    <div class="mal"><div class="caja"><span class="equis">✕</span><div style="display:flex; flex-direction:row-reverse; align-items:center; gap:4px; width:86%"><div style="width:30%">{{SVG:color/mundozyl_isotipo}}</div><div style="width:70%; overflow:hidden">{{WORDMARK_SOLO}}</div></div></div><p><b>Reordenar</b> o separar los elementos.</p></div>
+    <div class="mal"><div class="caja"><span class="equis">✕</span><div style="outline: 2px solid var(--azul-profundo); outline-offset: 8px; border-radius: 4px; width:78%">{{SVG:color/mundozyl_principal_2lineas}}</div></div><p><b>Encerrar</b> en marcos o formas no previstas.</p></div>
+  </div>
+  <div class="pie"><span>Manual de marca MUNDOZYL</span><span>08</span></div>
+</section>
+
+<!-- 9 · Mockup web -->
+<section class="lamina">
+  <div class="cabecera"><span class="cap">08 · Aplicación: sitio web</span><span class="marca">MUNDOZYL</span></div>
+  <div class="marco cuerpo" id="mock-web">
+    <div class="navegador">
+      <div class="barra"><i></i><i></i><i></i><span class="url">mundozyl.com</span></div>
+      <div class="web-nav">{{SVG:color/mundozyl_horizontal_1linea}}<ul><li>Productos</li><li>Soluciones</li><li>Servicio técnico</li><li>Contacto</li></ul><span class="boton">Solicitar cotización</span></div>
+      <div class="web-hero">
+        <div>
+          <div class="eyebrow">Nuevos · Ensamblados · Reacondicionados</div>
+          <h1>Tecnología confiable para su empresa</h1>
+          <p>Computadoras, servidores, impresoras, UPS, redes y videovigilancia con garantía y soporte técnico en Caracas.</p>
+          <div class="acciones"><span class="boton">Solicitar cotización</span><span class="boton claro">Ver catálogo</span></div>
+        </div>
+        <div class="gran-m">{{SVG:negativo/mundozyl_isotipo_negativo_transparente}}</div>
+      </div>
+      <div class="web-cats"><div>PC y laptops</div><div>Servidores</div><div>Impresoras</div><div>Monitores</div><div>UPS</div><div>Cámaras</div><div>Redes y telecom</div></div>
+    </div>
+  </div>
+  <div class="pie"><span>Textos de ejemplo.</span><span>09</span></div>
+</section>
+
+<!-- 10 · Mockup tarjetas -->
+<section class="lamina">
+  <div class="cabecera"><span class="cap">09 · Aplicación: tarjeta de presentación</span><span class="marca">MUNDOZYL</span></div>
+  <div class="marco cuerpo" id="mock-tarjeta">
+    <div class="tarjetas">
+      <div class="tarjeta frente">{{SVG:negativo/mundozyl_vertical_negativo_transparente}}<div class="diag">{{DIAGONALES}}</div></div>
+      <div class="tarjeta dorso">
+        <div class="iso">{{SVG:color/mundozyl_isotipo}}</div>
+        <div><div class="nombre">Nombre Apellido</div><div class="cargo">Ejecutivo de cuentas corporativas</div></div>
+        <ul><li>+58 212 000 0000 · +58 414 000 0000</li><li>ventas@mundozyl.com</li><li>mundozyl.com · @mundozyl</li><li>Caracas, Venezuela</li></ul>
+        <div class="franja"></div>
+      </div>
+    </div>
+  </div>
+  <div class="pie"><span>Formato 85 × 55 mm. Datos de contacto de ejemplo.</span><span>10</span></div>
+</section>
+
+<!-- 11 · Mockup redes -->
+<section class="lamina">
+  <div class="cabecera"><span class="cap">10 · Aplicación: redes sociales</span><span class="marca">MUNDOZYL</span></div>
+  <div class="marco cuerpo" id="mock-redes">
+    <div class="redes">
+      <div class="telefono">
+        <div class="perfil"><div class="avatar">{{SVG:redes/mundozyl_avatar_1080}}</div><div><b>mundozyl</b><div class="cifras"><span><strong>128</strong>posts</span><span><strong>2.430</strong>seguidores</span></div></div></div>
+        <p class="bio"><b>MUNDOZYL · Mundo Electronic ZYL</b>Equipos de computación, redes y seguridad para empresas. Nuevos, ensamblados y reacondicionados. Caracas, Venezuela</p>
+        <div class="grilla">
+          <div class="post p1"><div class="mini-m">{{SVG:una_tinta/mundozyl_isotipo_blanco_inline}}</div><small>Servidores</small>Su data, siempre disponible</div>
+          <div class="post p2"><small>Energía</small>UPS para cada puesto de trabajo</div>
+          <div class="post p3"><small>Reacondicionados</small>Rendimiento empresarial, mejor precio</div>
+          <div class="post p3"><small>Redes</small>Cableado y Wi-Fi para oficinas</div>
+          <div class="post p1"><small>Seguridad</small>Cámaras con monitoreo remoto</div>
+          <div class="post p2"><small>Soporte</small>Garantía y servicio técnico</div>
+        </div>
+      </div>
+      <div class="columna">
+        <div class="banner"><div class="txt">Tecnología confiable<br><span>para su empresa</span></div><div class="diag">{{DIAGONALES}}</div></div>
+        <div class="fila-redes">
+          <div class="post-grande"><div class="diag">{{DIAGONALES}}</div><div class="det">EQUIPOS PARA EMPRESAS</div><h4>Laptops corporativas con garantía</h4><div class="logo-pie">{{SVG:negativo/mundozyl_horizontal_1linea_negativo_transparente}}</div></div>
+          <div class="post-grande" style="background:var(--azul-zyl)"><div class="det" style="color:rgba(255,255,255,0.85)">SERVICIO TÉCNICO</div><h4>Mantenimiento preventivo para su oficina</h4><div class="logo-pie">{{SVG:una_tinta/mundozyl_horizontal_1linea_blanco}}</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pie"><span>Perfil (Instagram), portada (LinkedIn / Facebook) y publicaciones. Textos de ejemplo.</span><span>11</span></div>
+</section>
+
+<!-- 12 · Mockup papelería -->
+<section class="lamina">
+  <div class="cabecera"><span class="cap">11 · Aplicación: papelería</span><span class="marca">MUNDOZYL</span></div>
+  <div class="marco cuerpo" id="mock-papeleria">
+    <div class="papeleria">
+      <div class="hoja">
+        <div class="franja"></div>
+        <div class="enc">{{SVG:color/mundozyl_principal_2lineas}}<small>Mundo Electronic ZYL<br>RIF J-00000000-0<br>Caracas, Venezuela</small></div>
+        <div class="lineas"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="pie-hoja"><span>+58 212 000 0000</span><span>ventas@mundozyl.com</span><span>mundozyl.com</span></div>
+      </div>
+      <div style="display:grid; gap:24px; justify-items:center;">
+        <div class="sobre">{{SVG:color/mundozyl_principal_2lineas}}<div class="dest"><i></i><i style="width:80%"></i><i style="width:60%"></i></div><div class="franja"></div></div>
+        <div class="firma">{{SVG:color/mundozyl_isotipo}}<span class="sep"></span><div><b>Nombre Apellido</b><br>Ejecutivo de cuentas corporativas<br>+58 414 000 0000 · mundozyl.com</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="pie"><span>Hoja carta/A4, sobre americano y firma de correo. Datos de ejemplo.</span><span>12</span></div>
+</section>

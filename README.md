@@ -1,5 +1,26 @@
 # MUNDOZYL — Rediseño de logo
 
+## Entregables finales (logo aprobado: H2)
+
+- **`logo_final/`**: paquete del logo listo para usar (SVG vectorial + PNG 2000 px):
+  - `color/`: principal en 2 líneas, horizontal 1 línea, vertical e isotipo.
+  - `negativo/`: para fondos oscuros, con fondo azul profundo o transparente.
+  - `una_tinta/`: azul profundo, negro y blanco (sellos, facturas, grabado, bordado).
+  - `redes/`: avatar 1080×1080. `web/`: favicon SVG y PNG 32/180/512.
+- **`manual/manual_de_marca_mundozyl.pdf`**: manual de marca (12 láminas A4 horizontal): concepto, versiones, área de protección, tamaños mínimos, color, tipografía, fondos, usos incorrectos y aplicaciones.
+- **`manual/mockups/`**: vistas de prueba en web, tarjeta de presentación, redes sociales y papelería (PNG).
+
+Regenerar todo:
+
+```bash
+pip install fonttools cairosvg
+python3 herramientas/generar_logo_final.py
+python3 herramientas/generar_manual.py
+NODE_PATH=$(npm root -g) node herramientas/exportar_manual.js   # PDF + PNG (Playwright)
+```
+
+---
+
 **Mundo Electronic ZYL** · Caracas, Venezuela · Equipos de computación, redes, telecomunicaciones y seguridad para empresas.
 
 ## Ronda 3 (vigente) — Monograma M
