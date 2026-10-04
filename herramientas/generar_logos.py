@@ -18,12 +18,15 @@ from fontTools.varLib import instancer
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DIR_FUENTES = os.path.join(RAIZ, "herramientas", "fuentes")
-DIR_SALIDA = os.path.join(RAIZ, "propuestas")
+DIR_SALIDA = os.path.join(RAIZ, "propuestas", "ronda1")
 
 FUENTES = {
     "montserrat": "montserrat/Montserrat%5Bwght%5D.ttf",
     "sora": "sora/Sora%5Bwght%5D.ttf",
     "manrope": "manrope/Manrope%5Bwght%5D.ttf",
+    "archivo": "archivo/Archivo%5Bwdth,wght%5D.ttf",
+    "redhatdisplay": "redhatdisplay/RedHatDisplay%5Bwght%5D.ttf",
+    "saira": "saira/Saira%5Bwdth,wght%5D.ttf",
 }
 
 # Paleta "Azul corporativo"
@@ -40,7 +43,9 @@ _cache = {}
 
 
 def fuente(nombre, peso):
-    clave = (nombre, peso)
+    """peso: número (wght) o dict de ejes, p. ej. {"wght": 800, "wdth": 125}."""
+    ejes = peso if isinstance(peso, dict) else {"wght": peso}
+    clave = (nombre, tuple(sorted(ejes.items())))
     if clave in _cache:
         return _cache[clave]
     os.makedirs(DIR_FUENTES, exist_ok=True)
@@ -48,7 +53,7 @@ def fuente(nombre, peso):
     if not os.path.exists(ruta):
         url = "https://raw.githubusercontent.com/google/fonts/main/ofl/" + FUENTES[nombre]
         urllib.request.urlretrieve(url, ruta)
-    f = instancer.instantiateVariableFont(TTFont(ruta), {"wght": peso})
+    f = instancer.instantiateVariableFont(TTFont(ruta), ejes)
     _cache[clave] = f
     return f
 
@@ -337,8 +342,8 @@ def icono_app(clave, negativo=False):
     return svg_doc(lado, lado, cuerpo)
 
 
-def guardar(nombre, svg):
-    ruta = os.path.join(DIR_SALIDA, nombre)
+def guardar(nombre, svg, dir_salida=DIR_SALIDA):
+    ruta = os.path.join(dir_salida, nombre)
     os.makedirs(os.path.dirname(ruta), exist_ok=True)
     with open(ruta + ".svg", "w", encoding="utf-8") as fh:
         fh.write(svg)
